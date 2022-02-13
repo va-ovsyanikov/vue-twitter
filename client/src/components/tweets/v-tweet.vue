@@ -18,7 +18,7 @@
           createdAt &&
           formatDistance(new Date(createdAt), new Date(), { locale: ruLang })
         }}</span>
-        <v-dropdown :onClickRemove="handleClickRemoveId"></v-dropdown>
+        <v-dropdown :onClick2="handleClickRemoveId" title_top="Редактировать" title_bottom="Удалить"></v-dropdown>
       </div>
       <div class="text">
         <p>{{ text }}</p>

@@ -1,13 +1,13 @@
 <template>
-  <div class="dropdown_component">
+  <div class="dropdown_component drop">
     <div class="dropdown_trigger" @click.stop="isVisibleDropdown">
       <fa :icon="['fas', 'circle']" />
       <fa :icon="['fas', 'circle']" />
       <fa :icon="['fas', 'circle']" />
     </div>
     <ul class="dropdown_content" ref="dropdown" v-if="isVisible">
-      <li @click.stop="onClickEdit">Редактировать</li>
-      <li @click.stop="onClickRemove">Удалить</li>
+      <li @click.stop="onClick1">{{ title_top }}</li>
+      <li @click.stop="onClick2">{{ title_bottom }}</li>
     </ul>
   </div>
 </template>
@@ -17,11 +17,11 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "vDropdown",
-  props:{
-    onClickEdit: Function,
-    onClickRemove:{
-      type:Function,
-    }
+  props: {
+    onClick1: Function,
+    onClick2: Function,
+    title_top: String,
+    title_bottom: String,
   },
   data() {
     return {
@@ -81,9 +81,9 @@ export default {
   z-index: 7;
   background-color: #fff;
   li {
+    cursor: pointer;
     padding: 10px;
     transition: @bacground_trs;
-    cursor: pointer;
     &:hover {
       background-color: @color_gray_hover;
     }

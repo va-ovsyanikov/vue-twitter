@@ -3,6 +3,10 @@ export interface UserInterface{
     fullname: string,
     username: string,
     password:string,
-    token:string
+
 }
 
+export interface UserStateInterface{
+    user:UserInterface
+    userLoading:boolean
+}

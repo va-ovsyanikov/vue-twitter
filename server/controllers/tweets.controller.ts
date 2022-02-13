@@ -20,8 +20,6 @@ class tweetsController {
         }
     }
 
-
-
     async fetchTweet(req: Request, res: Response): Promise<void> {
         try {
             const tweetId = req.params.id
@@ -32,11 +30,12 @@ class tweetsController {
                     status: 'error',
                 })
                 return
+            } else {
+                res.status(200).send({
+                    status: 'success',
+                    data
+                })
             }
-            res.status(200).send({
-                status: 'success',
-                data
-            })
         } catch (error) {
             res.status(500).send({
                 status: 'error',
@@ -89,20 +88,20 @@ class tweetsController {
 
     async delete(req: Request, res: Response) {
         try {
+            //@ts-ignore
             const user = req.user as UserModelInterface
             if (user) {
                 const id = req.params.id
-                const tweet = await TweetModel.findById(id )
-                console.log(tweet)
+                const tweet = await TweetModel.findById(id)
                 if (tweet) {
                     if (String(user._id) === String(tweet.user)) {
-                      const data =  await tweet.remove()
-                       res.status(200).send({
-                        status: 'success',
-                        message: 'Твит удален',
-                        data
-                    })
-                    return
+                        const data = await tweet.remove()
+                        res.status(200).send({
+                            status: 'success',
+                            message: 'Твит удален',
+                            data
+                        })
+                        return
                     }
                 } else {
                     res.status(200).send({

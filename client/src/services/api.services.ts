@@ -20,6 +20,24 @@ import axios from 'axios';
 
 
 
+// const token = localStorage.getItem('token')
+// if (token) {
+//   axios.defaults.headers.common['Authorization'] = token
+// }
+// axios.interceptors.response.use(undefined, (err) => {
+//   return new Promise((resolve, reject) => {
+//     if (err.response.status === 401 && err.config && !err.config.__isRetryRequest) {
+//       console.log('Unauthorized')
+//       localStorage.removeItem('token')
+//       router.push({name: 'register'})
+//     } else { 
+//       console.log('Authorized')
+//     }
+//   });
+// });
+
+
+
 axios.interceptors.request.use(
      (config:any) => {
        const token =  localStorage.getItem('token')
@@ -35,7 +53,7 @@ axios.interceptors.request.use(
 // const API_URL = axiosInstanse.defaults.baseURL
 
 const URL=" http://localhost:3001"
-// : Promise<[]> 
+
 export const request = async (method:any, url?: string, data?:any):Promise<any> => {
     const response = await axios({ method: method, url:`${URL}/${url}`, data });
     return response.data

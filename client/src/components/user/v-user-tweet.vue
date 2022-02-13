@@ -104,7 +104,7 @@ export default defineComponent({
             }.bind(this),
             false
           );
-          reader.readAsDataURL(this.files[i] as any);
+          reader.readAsDataURL(this.files [i] as any);
         }
       }
     },

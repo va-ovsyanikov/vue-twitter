@@ -49,7 +49,7 @@ const actions = {
             const response:any = await fetchTweetAll()
             console.log(response);
             commit('LOADING', false)
-            commit('TWEET_FETCH_ALL', response.data)
+            commit('TWEET_FETCH_ALL', response.data as TweetInterface[])
         } catch (error) {
             console.log(error);
         }
@@ -58,7 +58,7 @@ const actions = {
         try {
             commit('LOADING', true)
             const response = await fetchTweetOne(_id)
-            commit('TWEET_FETCH_ONE', response.data)
+            commit('TWEET_FETCH_ONE', response.data as TweetInterface)
             commit('LOADING', false)
         } catch (error) {
             console.log(error);

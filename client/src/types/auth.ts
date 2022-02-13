@@ -6,7 +6,7 @@ export interface NotificationType{
 }
 export interface AuthStateInterface{
     loadingAuth: boolean,
-    token:string
+    // token:string
 }
 export interface LoginDataInterface{
     email:string
@@ -15,7 +15,7 @@ export interface LoginDataInterface{
 export interface LoginResponseInterface{
     message:string,
     status:string,
-    data:UserInterface 
+    token:string
 }
 export interface RegisterDataInterface{
     email:string,

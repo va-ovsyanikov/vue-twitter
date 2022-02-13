@@ -1,4 +1,3 @@
-import {  UserInterface } from '../../types/user';
 import { AuthStateInterface, LoginDataInterface, LoginResponseInterface, RegisterDataInterface } from '../../types/auth';
 import { login, register } from '../../services/auth.services';
 import axios from 'axios';
@@ -8,17 +7,14 @@ import router from '../../router';
 
 const state: AuthStateInterface = {
     loadingAuth: false,
-    token: localStorage.getItem("token") || ''
+    // token: localStorage.getItem("token") || ''
     // token
     // loadingUser
 }
 const mutations = {
-    // REGISTER(state:AuthStateInterface, data){
-
+    // LOG_IN(state: AuthStateInterface, data: LoginResponseInterface) {
+    //     state.token = data.token
     // },
-    LOGIN_IN(state: AuthStateInterface, data: UserInterface) {
-        state.token = data.token
-    },
     LOADING_AUTH(state: AuthStateInterface, data: boolean) {
         state.loadingAuth = data
     }
@@ -43,20 +39,19 @@ const actions = {
             commit('LOADING_AUTH', false)
         }
     },
-    async LOGIN_IN({ commit }: any, data: LoginDataInterface): Promise<void> {
-
+    async LOG_IN({ commit }: any, data: LoginDataInterface): Promise<void> {
         try {
             commit('LOADING_AUTH', true)
-            
+
             const response: LoginResponseInterface = await login(data)
 
-            const token: string = response.data.token as string
+            const token: string = response.token as string
 
             localStorage.setItem('token', token)
 
             axios.defaults.headers.common['Authorization'] = token
 
-            commit('LOGIN_IN', response.data)
+            // commit('LOG_IN', response.token)
 
             commit('NOTIFICATION', {
                 status: response.status,
@@ -73,13 +68,23 @@ const actions = {
                 message: error.response.data.message
             })
             localStorage.removeItem('token')
+            
             commit('LOADING_AUTH', false)
         }
+    },
+    async LOG_OUT({ commit }: any) {
+        localStorage.removeItem('token')
+        delete axios.defaults.headers.common['Authorization']
+        router.push('/register')
+        commit('NOTIFICATION', {
+            status: 'error',
+            message: 'Вы вышли'
+        })
     }
 }
 const getters = {
     LOADING_AUTH: (state: AuthStateInterface): boolean => state.loadingAuth,
-    IS_AUTH: (state: AuthStateInterface): boolean => !!state.token
+    // IS_AUTH: (state: AuthStateInterface): boolean => !!state.token
 }
 
 export default {

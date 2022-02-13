@@ -36,7 +36,7 @@
       :isBlue="true"
       title="Создать"
       submit
-       :disabled="LOADING_AUTH"
+      :disabled="LOADING_AUTH"
     ></v-button>
   </form>
 </template>
@@ -47,7 +47,7 @@ import VButton from "../button/v-button.vue";
 import useVuelidate from "@vuelidate/core";
 import { required, email, minLength, helpers } from "@vuelidate/validators";
 import { mapActions, mapGetters } from "vuex";
-import {LoginDataInterface} from '../../types/auth';
+import { LoginDataInterface } from "../../types/auth";
 export default defineComponent({
   name: "vLogin",
   components: {
@@ -85,7 +85,7 @@ export default defineComponent({
     ...mapGetters(["LOADING_AUTH", "IS_AUTH"]),
   },
   methods: {
-    ...mapActions(["LOGIN_IN"]),
+    ...mapActions(["LOG_IN"]),
     resetForm(): void {
       const elem = this.$refs.passwordChangeForm as HTMLFormElement;
       elem.reset();
@@ -95,12 +95,11 @@ export default defineComponent({
       if (this.v$.$error) {
         return;
       } else {
-    
-        const formData:LoginDataInterface = {
+        const formData: LoginDataInterface = {
           email: this.email,
           password: this.password,
         };
-        this.LOGIN_IN(formData);
+        this.LOG_IN(formData);
         this.resetForm();
       }
     },

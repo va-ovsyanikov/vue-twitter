@@ -23,17 +23,10 @@ class authLoginController {
                             _id: candidate._id,
                             email: candidate.email
                         }, process.env.JWT_SECRET, { expiresIn: '1h' })
-                        const data = {
-                            // _id: candidate._id,
-                            // email: candidate.email,
-                            // fullname: candidate.fullname,
-                            // username: candidate.username,
-                            token: `Bearer ${token}`
-                        }
                         res.status(201).send({
                             status: 'success',
                             message: 'Авторизация прошла успешно!',
-                            data
+                            token: `Bearer ${token}`
                         })
                         return
                     } else {

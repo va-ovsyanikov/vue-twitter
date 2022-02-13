@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
-import { UserModel } from '../models/UserModel';
+import { UserModel, UserModelInterface } from '../models/UserModel';
 
 class userController {
     async fetchUser(req: Request, res: Response): Promise<any> {
         try {
-            const data = await UserModel.find().exec()
-            res.status(200).send({
-                status: 'success',
-                data
-            })
+            const data = await UserModel.findOne().select('-password -confirmHash').exec()
+            if(data){
+                res.status(200).send({
+                    data
+                })
+            }
+        
         } catch (error) {
             res.status(400).send({
                 status: 'error',

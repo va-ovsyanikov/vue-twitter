@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import store from '@/store';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -28,6 +27,36 @@ const routes: Array<RouteRecordRaw> = [
       },
     ]
   },
+  {
+    path: '/notice',
+    name: 'Notice',
+    meta: { layout: 'v-main', auth: true },
+    component: () => import('../views/Notice.vue')
+  },
+  {
+    path: '/message',
+    name: 'Message',
+    meta: { layout: 'v-main', auth: true },
+    component: () => import('../views/Message.vue')
+  },
+  {
+    path: '/bookmark',
+    name: 'Bookmark',
+    meta: { layout: 'v-main', auth: true },
+    component: () => import('../views/Bookmark.vue')
+  },
+  {
+    path: '/list',
+    name: 'List',
+    meta: { layout: 'v-main', auth: true },
+    component: () => import('../views/List.vue')
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    meta: { layout: 'v-main', auth: true },
+    component: () => import('../views/Profile.vue')
+  },
 
   {
     path: '/register',
@@ -43,8 +72,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthorization = store.getters['IS_AUTH']
-  // const isAuthorization = localStorage.getItem("token") || ''
+  const isAuthorization = !!localStorage.getItem("token") || ''
   const requireAuth = to.matched.some(record => record.meta.auth)
   if (requireAuth && !isAuthorization) {
     next('/register')

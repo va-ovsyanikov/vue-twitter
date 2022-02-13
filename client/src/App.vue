@@ -28,28 +28,7 @@ export default defineComponent({
       token: "",
     };
   },
-  // methods:{
-  //   router(){
-  //     if(this.IS_AUTH){
-  //       this.$router.push('/')
-  //     }
-  //   }
-  // },
-  // mounted(){
-  //   if(this.IS_AUTH){
-  //     this.$router.push('/')
-  //   }
-  // },
-  //  mounted() {
-  //   if (localStorage.token) {
-  //     this.token = localStorage.token;
-  //   }
-  // },
-  // created() {
-  //     window.addEventListener('storage', () => {
-  //       console.log(12324);
-  //     })
-  //   },
+ 
   watch: {
     NOTIFICATION: function () {
       this.$notify({
@@ -57,12 +36,6 @@ export default defineComponent({
         text: `${this.NOTIFICATION.message}`,
       });
     },
-    //  token() {
-    //   this.$router.push('/')
-    // }
-    // IS_AUTH:function(){
-    //   this.$router.push('/')
-    // }
   },
 });
 </script>
@@ -71,12 +44,12 @@ export default defineComponent({
     position: relative;
   &:after {
     content:'';
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     height: 100%;
     width: 100%;
-    z-index: 5;
+    z-index: 2;
 
   }
 }
