@@ -1,5 +1,5 @@
 <template>
-  <div class="search_component">
+  <div class="search__component">
     <form action="">
       <v-input
         :type="text"
@@ -22,7 +22,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.search_component{
+.search__component{
     form{
         position: relative;
     }

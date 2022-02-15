@@ -1,13 +1,13 @@
 <template>
-  <div class="status_component">
+  <div class="status__component">
     <img class="avatar" src="img/avatar2.jpg" alt="alt" />
     <div class="names">
       <span class="fullname">{{ USER.fullname }}</span>
       <span class="username">{{ USER.username }}</span>
     </div>
-    <div class="dropdown_user_status">
+    <div class="dropdown__user__status">
       <v-dropdown
-      :onClick1="handleClickProfile"
+        :onClick1="handleClickProfile"
         :onClick2="handleClickLogout"
         title_top="Профиль"
         title_bottom="Выйти"
@@ -30,8 +30,8 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(["USER_FETCH", "LOG_OUT"]),
-    handleClickProfile(){
-      this.$router.push('/profile')
+    handleClickProfile() {
+      this.$router.push("/profile");
     },
     handleClickLogout() {
       this.LOG_OUT();
@@ -44,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.status_component {
+.status__component {
   position: relative;
   display: flex;
   margin-top: auto;
@@ -73,7 +73,7 @@ img {
 .fullname {
   font-weight: bold;
 }
-.dropdown_user_status {
+.dropdown__user__status {
   margin-left: auto;
 }
 </style>

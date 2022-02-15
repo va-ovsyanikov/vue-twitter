@@ -1,17 +1,17 @@
 <template>
   <div>
     <v-loading v-if="LOADING"></v-loading>
-    <div class="page_component" v-else>
+    <div class="tweet__page__component" v-else>
       <div class="top">
         <div class="avatar">
-          <img :src="TWEET.avatarUrl" alt="alt" />
+          <img src="img/avatar2.jpg" alt="alt" />
         </div>
         <div class="names">
           <a class="fullname" href="/">
-            <span>{{ TWEET.fullname }}</span>
+            <span>{{TWEET.user && TWEET.user.fullname }}</span>
           </a>
-          <a href="" class="username">
-            <span>{{ TWEET.username }}</span>
+          <a class="username" href="/">
+            <span>{{TWEET.user && TWEET.user.username }}</span>
           </a>
         </div>
       </div>
@@ -22,12 +22,14 @@
         <span>{{
           TWEET.createdAt &&
           format(new Date(TWEET.createdAt), "H:mm", { locale: ruLang })
-        }}</span>
-        <br />
+        }}
+        </span>
+           <span class="dot"> · </span>
         <span>{{
           TWEET.createdAt &&
           format(new Date(TWEET.createdAt), "dd MMM yyy г.", { locale: ruLang })
-        }}</span>
+        }}
+        </span>
       </div>
       <div class="bottom">
         <ul>
@@ -78,7 +80,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.page_component {
+.tweet__page__component {
   border-top: 1px solid rgb(239, 243, 244);
   border-bottom: 1px solid rgb(239, 243, 244);
   padding: 15px;
@@ -110,19 +112,57 @@ export default defineComponent({
 }
 .date {
   color: @color_darkened_gray;
-  margin-top: 30px;
+  margin-top: 15px;
   margin-bottom: 15px;
-  &:hover {
-    text-decoration: underline;
-  }
+  display: flex;
+}
+.dot {
+  margin: 0 5px;
+  color: @color_darkened_gray;
 }
 .top {
   display: flex;
+  margin-bottom: 30px;
 }
 .text {
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgb(239, 243, 244);
   p {
     font-size: 24px;
     line-height: 28px;
+  }
+}
+.bottom {
+  margin-top: 20px;
+  padding-top: 16px;
+ border-top: 1px solid rgb(239, 243, 244);
+ }
+ul {
+  display: flex;
+  justify-content: space-between;
+  li {
+    cursor: pointer;
+    a {
+      padding: 10px;
+      border-radius: 50%;
+      transition: @bacground_trs;
+      color: @color_dark_gray;
+      font-size: 20px;
+    }
+    &:hover {
+      a {
+        background-color: @color_blue_hover_transparent;
+        color: @color_blue;
+      }
+      span {
+        color: @color_blue;
+      }
+    }
+  }
+  span {
+    margin-left: 5px;
+    font-size: 12px;
+    transition: color ease-in-out 0.2s;
   }
 }
 </style>

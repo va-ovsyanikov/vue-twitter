@@ -1,14 +1,15 @@
 <template>
-  <div class="tweet_component" @click="handleFetchOneTweet(_id)">
+  <div class="tweet__component" @click="handleFetchOneTweet(_id)">
     <div class="avatar">
       <img src="img/avatar2.jpg" alt="avatar" />
     </div>
     <div class="content">
-      <div class="content_top">
+      <div class="content__top">
         <div class="names">
           <a class="fullname" href="/">
             <span>{{ fullname }}</span>
           </a>
+          <span class="dot"> · </span>
           <a href="" class="username">
             <span>{{ username }}</span>
           </a>
@@ -18,12 +19,17 @@
           createdAt &&
           formatDistance(new Date(createdAt), new Date(), { locale: ruLang })
         }}</span>
-        <v-dropdown :onClick2="handleClickRemoveId" title_top="Редактировать" title_bottom="Удалить"></v-dropdown>
+        <v-dropdown
+          :onClick2="handleClickRemoveTweet"
+          :onClick1="handleClickEditTweet"
+          title_top="Редактировать"
+          title_bottom="Удалить"
+        ></v-dropdown>
       </div>
       <div class="text">
         <p>{{ text }}</p>
       </div>
-      <div class="content_bottom">
+      <div class="content__bottom">
         <ul>
           <li v-for="item in list" :key="item">
             <a href="">
@@ -41,7 +47,7 @@ import { defineComponent } from "vue";
 import { formatDistance } from "date-fns";
 import ruLang from "date-fns/locale/ru";
 import vDropdown from "../dropdown/v-dropdown.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default defineComponent({
   name: "vTweet",
@@ -68,19 +74,22 @@ export default defineComponent({
     };
   },
   methods: {
-    ...mapActions(["TWEET_DELETE"]),
+    ...mapActions(["TWEET_DELETE", "TWEET_EDIT"]),
     handleFetchOneTweet(_id: any): void {
       this.$router.push({ path: `/tweet/${_id}`, params: _id });
     },
-    handleClickRemoveId() {
+    handleClickRemoveTweet() {
       this.TWEET_DELETE(this._id);
+    },
+    handleClickEditTweet(_id:any) {
+      this.TWEET_EDIT(this._id);
     },
   },
 });
 </script>
 
 <style lang="less" scoped>
-.tweet_component {
+.tweet__component {
   border-top: 1px solid rgb(239, 243, 244);
   border-bottom: 1px solid rgb(239, 243, 244);
   display: flex;
@@ -98,7 +107,7 @@ export default defineComponent({
     border-radius: 50%;
   }
 }
-.content_top {
+.content__top {
   display: flex;
   margin-bottom: 5px;
   align-items: center;
@@ -107,7 +116,6 @@ export default defineComponent({
 .fullname {
   font-weight: bold;
   font-size: 14px;
-  margin-right: 5px;
 }
 .username {
   color: @color_darkened_gray;
@@ -130,7 +138,7 @@ export default defineComponent({
 .content {
   width: 90%;
 }
-.content_bottom {
+.content__bottom {
   margin-top: 20px;
   width: 83%;
   margin-left: -20px;
@@ -163,7 +171,7 @@ ul {
     transition: color ease-in-out 0.2s;
   }
 }
-.dropdown_component {
+.dropdown__component {
   margin-left: auto;
 }
 </style>

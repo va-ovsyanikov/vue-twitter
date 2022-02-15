@@ -1,5 +1,5 @@
 <template>
-  <div class="button_history_component">
+  <div class="button__history__component">
     <fa :icon="['fas', 'arrow-left']" />
   </div>
 </template>
@@ -9,7 +9,7 @@ export default {};
 </script>
 
 <style lang="less" scoped>
-.button_history_component {
+.button__history__component {
   cursor: pointer;
   display: flex;
   align-items: center;

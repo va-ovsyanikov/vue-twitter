@@ -4,7 +4,7 @@
       <input
         id="email"
         type="text"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="email"
         @blur="v$.email.$touch"
       />
@@ -18,7 +18,7 @@
       <input
         id="username"
         type="text"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="username"
         @blur="v$.username.$touch"
       />
@@ -32,7 +32,7 @@
       <input
         id="fullname"
         type="text"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="fullname"
         @blur="v$.fullname.$touch"
       />
@@ -47,7 +47,7 @@
       <input
         id="password"
         type="password"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="password"
         @blur="v$.password.$touch"
       />
@@ -65,7 +65,7 @@
       <input
         id="confirm"
         type="password"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="confirm"
         @blur="v$.confirm.$touch"
       />

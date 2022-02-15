@@ -1,7 +1,7 @@
 <template>
-  <div class="followers_component">
+  <div class="followers__component">
     <h3>Кого читать</h3>
-    <div class="followers_content">
+    <div class="followers__content">
       <ul>
         <v-followers-item
           v-for="follower in followers"
@@ -51,7 +51,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.followers_component {
+.followers__component {
 margin-top: 20px;
   width: 350px;
   background-color: @color_gray;

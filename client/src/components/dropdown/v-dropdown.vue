@@ -1,11 +1,11 @@
 <template>
-  <div class="dropdown_component drop">
-    <div class="dropdown_trigger" @click.stop="isVisibleDropdown">
+  <div class="dropdown__component drop">
+    <div class="dropdown__trigger" @click.stop="handleClickVisibleDropdown">
       <fa :icon="['fas', 'circle']" />
       <fa :icon="['fas', 'circle']" />
       <fa :icon="['fas', 'circle']" />
     </div>
-    <ul class="dropdown_content" ref="dropdown" v-if="isVisible">
+    <ul class="dropdown__content" ref="dropdown" v-if="isVisible">
       <li @click.stop="onClick1">{{ title_top }}</li>
       <li @click.stop="onClick2">{{ title_bottom }}</li>
     </ul>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   name: "vDropdown",
@@ -28,28 +28,34 @@ export default {
       isVisible: false,
     };
   },
+  computeds:{
+    ...mapGetters(["IS_VISIBLE_DROPDOWN"])
+  },
+  created(){
+    this.isVisible = this.IS_VISIBLE_DROPDOWN
+  },
   methods: {
-    ...mapMutations(["IS_VISIBLE_DROPDOWN"]),
-    isVisibleDropdown() {
+    ...mapMutations(["DROPDOWN"]),
+    handleClickVisibleDropdown() {
       this.isVisible = true;
-      this.IS_VISIBLE_DROPDOWN(this.isVisible);
+      this.DROPDOWN(this.isVisible);
     },
-    hendleOutsideClick(event) {
+    hendleClickHideDropdown(event) {
       const path = event.path;
       if (!path.includes(this.$refs.dropdown)) {
         this.isVisible = false;
-        this.IS_VISIBLE_DROPDOWN(this.isVisible);
+        this.DROPDOWN(this.isVisible);
       }
     },
   },
   mounted() {
-    document.body.addEventListener("click", this.hendleOutsideClick);
+    document.body.addEventListener("click", this.hendleClickHideDropdown);
   },
 };
 </script>
 
 <style lang="less" scoped>
-.dropdown_trigger {
+.dropdown__trigger {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +77,7 @@ export default {
     }
   }
 }
-.dropdown_content {
+.dropdown__content {
   position: absolute;
   right: 0;
   top: 0;

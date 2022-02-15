@@ -1,19 +1,26 @@
 <template>
-  <div class="user_component">
-    <div class="user_avatar">
+  <div class="user__component">
+    <div class="user__avatar">
       <img src="img/avatar1.jpg" alt="avatar" />
     </div>
-    <div class="user_content">
-      <div class="input-field user_field_component">
+    <div class="user__content">
+      <div class="input-field user__field__component" v-if="TWEET_EDIT._id">
         <textarea
-          type="text"
-          class="materialize-textarea text_input"
-          placeholder="Что тут происходит?"
-          v-model="text"
+          class="materialize-textarea textarea textarea_edit"
+          v-model.trim="TWEET_EDIT.text"
+          autofocus
         >
         </textarea>
       </div>
-      <div class="preview_main">
+      <div class="input-field user__field__component" v-else>
+        <textarea
+          class="materialize-textarea textarea"
+          placeholder="Что тут происходит?"
+          v-model.trim="text"
+        >
+        </textarea>
+      </div>
+      <div class="preview__main" v-if="TWEET_EDIT._id">
         <div class="preview" v-for="(file, key) in files" :key="key">
           <fa
             :icon="['far', 'times-circle']"
@@ -23,7 +30,17 @@
         </div>
       </div>
 
-      <div class="user_bottom">
+      <div class="preview__main" v-else>
+        <div class="preview" v-for="(file, key) in files" :key="key">
+          <fa
+            :icon="['far', 'times-circle']"
+            @click="removePreview(file.name)"
+          />
+          <img :ref="'image' + parseInt(key)" />
+        </div>
+      </div>
+
+      <div class="user__bottom">
         <div class="file-field">
           <fa :icon="['far', 'file-image']" @click="addFiles()" />
           <input
@@ -34,13 +51,21 @@
             @change="uploadImage()"
           />
         </div>
-        <div></div>
+        <v-button
+          :isButtonUser="true"
+          :isBlue="true"
+          title="Изменить"
+          :disabled="!TWEET_EDIT.text"
+          :onClick="handleClickUpdateTweet"
+          v-if="TWEET_EDIT._id"
+        ></v-button>
         <v-button
           :isButtonUser="true"
           :isBlue="true"
           title="Твитнуть"
           :disabled="!text"
-          :onClick="handleAddTweet"
+          :onClick="handleClickAddTweet"
+          v-else
         ></v-button>
       </div>
     </div>
@@ -69,10 +94,10 @@ export default defineComponent({
     };
   },
   computed: {
-    ...mapGetters(["LOADING_TWEET_ADD", "TWEETS"]),
+    ...mapGetters(["LOADING_TWEET_ADD", "TWEETS", "TWEET_EDIT"]),
   },
   methods: {
-    ...mapActions(["TWEET_ADD"]),
+    ...mapActions(["TWEET_ADD", "TWEET_UPDATE"]),
     // uploadImage(): void {
     //   const el = this.$refs.file as HTMLFormElement;
     //   this.file = el.files[0];
@@ -104,7 +129,7 @@ export default defineComponent({
             }.bind(this),
             false
           );
-          reader.readAsDataURL(this.files [i] as any);
+          reader.readAsDataURL(this.files[i] as any);
         }
       }
     },
@@ -124,18 +149,25 @@ export default defineComponent({
       this.files = this.files.filter((elem) => elem.name !== name);
     },
 
-    handleAddTweet(): void {
+    handleClickAddTweet(): void {
       const obj = {
         message: this.text,
       };
       this.TWEET_ADD(obj);
-      this.text = ''
+      this.text = "";
     },
+    handleClickUpdateTweet(){
+        const obj = {
+        _id: this.TWEET_EDIT._id,
+        message: this.TWEET_EDIT.text,
+      };
+      this.TWEET_UPDATE(obj)
+    }
   },
 });
 </script>
 <style lang="less" scoped>
-.preview_main {
+.preview__main {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -171,23 +203,22 @@ export default defineComponent({
     background-color: @color_blue_hover_transparent;
   }
 }
-.user_content {
+.user__content {
   width: 89%;
 }
-.user_component {
+.user__component {
   display: flex;
   padding: 15px;
-  // box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, .1);
-  // margin-bottom: 10px;
+  margin-bottom: 20px;
 }
-.user_avatar {
+.user__avatar {
   width: 11%;
   img {
     width: 48px;
     border-radius: 50%;
   }
 }
-.user_bottom {
+.user__bottom {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
@@ -213,11 +244,16 @@ export default defineComponent({
   }
 }
 
-.text_input {
+.textarea {
   border: 0;
   &:focus:not([readonly]) {
     border: 0;
     box-shadow: none;
   }
+}
+.textarea_edit{
+  min-height: 120px;
+  overflow: auto;
+  resize:vertical;
 }
 </style>

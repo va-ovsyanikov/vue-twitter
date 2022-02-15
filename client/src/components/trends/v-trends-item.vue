@@ -1,6 +1,6 @@
 <template>
   <li>
-    <router-link class="trends_item" :to="`/trends/:${trend.name}`">
+    <router-link class="trends__item" :to="`/trends/:${trend.name}`">
       <h4>{{ trend.name }}</h4>
       <span>Твитов: {{ trend.count }}</span>
     </router-link>
@@ -17,7 +17,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.trends_item {
+.trends__item {
   padding: 15px;
   display: block;
   transition: background-color ease-in-out 0.3s;

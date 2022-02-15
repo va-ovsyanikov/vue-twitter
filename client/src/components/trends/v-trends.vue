@@ -1,7 +1,7 @@
 <template>
-  <div class="trends_component">
+  <div class="trends__component">
     <h3>Актуальные темы</h3>
-    <div class="trends_content">
+    <div class="trends__content">
       <ul>
         <v-trends-item
           v-for="trend in TRENDS"
@@ -48,7 +48,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.trends_component {
+.trends__component {
   width: 350px;
   background-color: @color_gray;
   border-radius: 10px;

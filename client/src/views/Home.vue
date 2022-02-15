@@ -8,7 +8,7 @@
       v-else
       v-for="tweet in TWEETS"
       :key="tweet._id"
-      :createdAt="tweet.user.createdAt"
+      :createdAt="tweet.createdAt"
       :_id="tweet._id"
       :text="tweet.text"
       :fullname="tweet.user.fullname"

@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="handleSubmit" ref="passwordChangeForm">
-    <div class="input-field input_component">
+    <div class="input-field input__component">
       <input
         id="email"
         type="text"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="email"
         @blur="v$.email.$touch"
       />
@@ -15,11 +15,11 @@
     </div>
     <!-- <v-input type="text" id="name" inputText="Имя"></v-input>
     <v-input type="email" id="email" inputText="Email"></v-input> -->
-    <div class="input-field input_component">
+    <div class="input-field input__component">
       <input
         id="password"
         type="password"
-        class="reg_input browser-default"
+        class="reg__input browser-default"
         v-model.trim="password"
         @blur="v$.password.$touch"
       />
@@ -34,7 +34,7 @@
     </div>
     <v-button
       :isBlue="true"
-      title="Создать"
+      title="Войти"
       submit
       :disabled="LOADING_AUTH"
     ></v-button>

@@ -7,13 +7,14 @@ export interface TweetInterface {
     text: string
     createdAt:string
     updatedAt:string
-    data: UserInterface,
+    data: UserInterface
 }
 export interface TweetsStateInterface {
-    tweets: Array<TweetInterface>,
-    tweet: TweetInterface,
-    loading: boolean,
-    loadingAddTweet:boolean,
-    notifacation:NotificationType,
+    tweets: Array<TweetInterface>
+    tweet: TweetInterface
+    tweet_edit:TweetInterface
+    loading: boolean
+    loadingAddTweet:boolean
+    notifacation:NotificationType
     isVisibleDropdown:boolean
 }

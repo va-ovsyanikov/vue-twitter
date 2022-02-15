@@ -1,6 +1,6 @@
 <template>
-  <div class="sub_page_layuot_component">
-    <div class="sub_page_layuot_top">
+  <div class="sub__page__layuot__component">
+    <div class="sub__page__layuot__top">
       <v-button-history @click="$router.go(-1)"></v-button-history>
       <!-- <h2 v-if="$route.query.page === 'tweets'">Твиты</h2> -->
       <h2>Назад</h2>
@@ -21,7 +21,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.sub_page_layuot_top {
+.sub__page__layuot__top {
   padding: 0;
   display: flex;
   align-items: center;

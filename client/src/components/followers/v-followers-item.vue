@@ -1,8 +1,8 @@
 <template>
   <li>
-    <router-link class="followers_item" to="/">
+    <router-link class="followers__item" to="/">
       <img :src="img" alt="alt" />
-      <div class="followers_item_title">
+      <div class="followers__item__title">
         <h4>{{ title }}</h4>
         <span>{{ nickname }}</span>
       </div>
@@ -21,7 +21,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.followers_item {
+.followers__item {
   padding: 15px;
   transition: background-color ease-in-out 0.3s;
   display: flex;

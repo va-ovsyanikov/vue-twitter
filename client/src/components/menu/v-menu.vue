@@ -1,9 +1,9 @@
 <template>
-  <div class="nav_component">
+  <div class="nav__component">
     <ul>
       <li
-        class="item_link "
-        :class="{item_link_active: index === isActive}"
+        class="item__link "
+        :class="{item__link__active: index === isActive}"
         v-for="(item, index) in links"
         :key="item"
         @click="handleItemActive(index)"
@@ -42,7 +42,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.nav_component {
+.nav__component {
   margin-top: 30px;
 
   ul {
@@ -52,7 +52,7 @@ export default defineComponent({
     align-items: flex-start;
   }
 }
-.item_link {
+.item__link {
   display: inline-block;
   
   border-radius: 20px;
@@ -80,7 +80,7 @@ export default defineComponent({
     color: rgba(0, 0, 0, 0.8);
     transition: color ease-in-out 0.2s;
   }
-  &_active {
+  &__active {
     background-color: rgba(29, 161, 242, 0.1);
     a {
       color: @color_blue;

@@ -1,7 +1,7 @@
 <template>
-  <div :id="id" ref="modal" class="modal modal_component" :class="{ light: isLight }">
+  <div :id="id" ref="modal" class="modal modal__component" :class="{ light: isLight }">
     <div class="modal-content">
-      <div class="modal_top">
+      <div class="modal__top">
         <fa :icon="['fab', 'twitter']" />
         <a href="#!" class="modal-close waves-green btn-flat" >x</a>
       </div>
@@ -29,7 +29,7 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
-.modal_component {
+.modal__component {
   background-color: #000;
   border-radius: 15px;
   max-width: 600px;
@@ -51,7 +51,7 @@ h5 {
   overflow: hidden;
 
 }
-.modal_top {
+.modal__top {
   display: flex;
   margin-bottom: 30px;
 }

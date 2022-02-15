@@ -24,7 +24,10 @@ class tweetsController {
         try {
             const tweetId = req.params.id
 
-            const data = await TweetModel.findById({ _id: tweetId })
+            const tweet = await TweetModel.findById({ _id: tweetId })
+
+            const data = await tweet?.populate('user', '-password -confirmHash -email')
+
             if (!data) {
                 res.status(404).send({
                     status: 'error',
@@ -76,7 +79,6 @@ class tweetsController {
                     message: 'Ошибка добавления твита',
                 })
             }
-
         } catch (error) {
             res.status(500).send({
                 status: 'error',
@@ -97,7 +99,7 @@ class tweetsController {
                     if (String(user._id) === String(tweet.user)) {
                         const data = await tweet.remove()
                         res.status(200).send({
-                            status: 'success',
+                            status: 'error',
                             message: 'Твит удален',
                             data
                         })
@@ -123,6 +125,10 @@ class tweetsController {
                 message: 'Ошибка'
             })
         }
+    }
+
+    async update(req:Request, res:Response){
+
     }
 }
 

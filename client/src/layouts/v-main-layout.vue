@@ -1,30 +1,23 @@
 <template>
   <div class="wrapper">
-    <div class="sidebar_left" v-fixed>
+    <div class="sidebar__left" v-fixed>
       <router-link to="/"><fa :icon="['fab', 'twitter']" /></router-link>
       <v-menu></v-menu>
-      <a class="register_btn modal-trigger" href="#modal_tweet">
+      <a class="register__btn modal-trigger" href="#modal__tweet">
         <v-button :isBlue="true" title="Твитнуть"> </v-button>
       </a>
-      <v-modal id="modal_tweet" :isLight="true">
+      <v-modal id="modal__tweet" :isLight="true">
         <template v-slot:content>
-          <div>Картинка</div>
-          <v-button
-            :isButtonUser="true"
-            :isBlue="true"
-            title="Твитнуть"
-            :onClick="handleAddTweetModal"
-            :disabled="!value"
-          ></v-button>
+       <v-user-tweet></v-user-tweet>
         </template>
       </v-modal>
       <v-user-status></v-user-status>
     </div>
 
-    <div class="main_content">
+    <div class="main__content">
       <router-view />
     </div>
-    <div class="sidebar_right" v-fixed>
+    <div class="sidebar__right" v-fixed>
       <v-search></v-search>
       <v-trends></v-trends>
       <v-followers></v-followers>
@@ -42,6 +35,7 @@ import vModal from "../components/modal/v-modal.vue";
 import vTrends from "../components/trends/v-trends.vue";
 import vFollowers from "../components/followers/v-followers.vue";
 import vUserStatus from "../components/user/v-user-status.vue";
+import vUserTweet from '../components/user/v-user-tweet.vue'
 
 export default defineComponent({
   components: {
@@ -52,6 +46,7 @@ export default defineComponent({
     vTrends,
     vFollowers,
     vUserStatus,
+    vUserTweet
   },
   data() {
     return {
@@ -77,6 +72,9 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
+h5{
+  display: none;
+}
 .fa-twitter {
   font-size: 30px;
   color: @color_blue;
@@ -89,20 +87,20 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
 }
-.main_content {
+.main__content {
   border-left: 1px solid rgb(239, 243, 244);
   border-right: 1px solid rgb(239, 243, 244);
   padding: 0 0 100px 0;
   width: 600px;
 }
-.sidebar_left {
+.sidebar__left {
   width: 290px;
   padding-right: 20px;
   display: flex;
   flex-direction: column;
   z-index: 3;
 }
-.sidebar_right {
+.sidebar__right {
   width: 390px;
   display: flex;
   flex-direction: column;
