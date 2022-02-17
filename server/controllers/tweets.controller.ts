@@ -128,7 +128,12 @@ class tweetsController {
     }
 
     async update(req:Request, res:Response){
-
+        try {
+            console.log(req.body.message)
+            console.log(req.params)
+        } catch (error) {
+            
+        }
     }
 }
 

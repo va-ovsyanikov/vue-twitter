@@ -72,7 +72,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthorization = !!localStorage.getItem("token") || ''
+  const isAuthorization = !!localStorage.getItem("token")
   const requireAuth = to.matched.some(record => record.meta.auth)
   if (requireAuth && !isAuthorization) {
     next('/register')

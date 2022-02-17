@@ -1,6 +1,10 @@
 import { UserInterface } from './user';
 import {NotificationType} from './auth';
 
+export interface TweetDataInterface{
+    _id:string,
+    message:string
+}
 
 export interface TweetInterface {
     _id: string

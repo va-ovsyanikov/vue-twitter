@@ -30,7 +30,6 @@ const actions = {
                 message: response.message
             })
             commit('LOADING_AUTH', false)
-
         } catch (error: any) {
             commit('NOTIFICATION', {
                 status: error.response.data.status,
@@ -42,33 +41,23 @@ const actions = {
     async LOG_IN({ commit }: any, data: LoginDataInterface): Promise<void> {
         try {
             commit('LOADING_AUTH', true)
-
             const response: LoginResponseInterface = await login(data)
-
             const token: string = response.token as string
-
             localStorage.setItem('token', token)
-
             axios.defaults.headers.common['Authorization'] = token
-
             // commit('LOG_IN', response.token)
-
             commit('NOTIFICATION', {
                 status: response.status,
                 message: response.message
             })
-
             commit('LOADING_AUTH', false)
-
             router.go(0)
-
         } catch (error: any) {
             commit('NOTIFICATION', {
                 status: error.response.data.status,
                 message: error.response.data.message
             })
             localStorage.removeItem('token')
-            
             commit('LOADING_AUTH', false)
         }
     },

@@ -1,7 +1,7 @@
-import { TweetsStateInterface, TweetInterface } from '../../types/tweets';
+import { TweetsStateInterface, TweetInterface, TweetDataInterface } from '../../types/tweets';
 import { NotificationType } from '../../types/auth';
 import { fetchTweetAll, fetchTweetOne, addTweet, deleteTweet, updateTweet } from '../../services/tweets.services';
-import { upload } from '../../services/upload.services';
+// import { upload } from '../../services/upload.services';
 
 const state: TweetsStateInterface = {
     tweets: [] as TweetInterface[],
@@ -43,7 +43,6 @@ const mutations = {
         state.loadingAddTweet = data
     },
     DROPDOWN(state: TweetsStateInterface, data: boolean): void {
-        console.log(data)
         state.isVisibleDropdown = data
     }
 }
@@ -55,8 +54,11 @@ const actions = {
             const response: any = await fetchTweetAll()
             commit('LOADING', false)
             commit('TWEET_FETCH_ALL', response.data as TweetInterface[])
-        } catch (error) {
-            console.log(error);
+        } catch (error:any) {
+            commit('NOTIFICATION', {
+                status: error.response.data.status,
+                message: error.response.data.message
+            })
         }
     },
     async TWEET_FETCH_ONE({ commit }: any, _id: string): Promise<void> {
@@ -65,27 +67,27 @@ const actions = {
             const response = await fetchTweetOne(_id)
             commit('TWEET_FETCH_ONE', response.data as TweetInterface)
             commit('LOADING', false)
-        } catch (error) {
-            console.log(error);
+        } catch (error:any) {
+            commit('NOTIFICATION', {
+                status: error.response.data.status,
+                message: error.response.data.message
+            })
         }
     },
     async TWEET_ADD({ commit }: any, data: string) {
         try {
-
             commit('LOADING_ADD_TWEET', true)
             const response = await addTweet(data)
-            console.log(response)
             commit('TWEET_ADD', response.data)
             commit('NOTIFICATION', {
-                status: 'success',
-                message: 'Твит добавлен!'
+                status: response.status,
+                message: response.message
             })
             commit('LOADING_ADD_TWEET', false)
-
-        } catch (e) {
+        } catch (error:any) {
             commit('NOTIFICATION', {
-                status: 'error',
-                message: 'Ошибка! Твит не добавлен :('
+                status: error.response.data.status,
+                message: error.response.data.message
             })
         }
     },
@@ -93,17 +95,17 @@ const actions = {
         try {
             commit('LOADING', true)
             const response = await deleteTweet(_id)
-            console.log(response.data)
             commit('TWEET_DELETE', response.data)
+            commit('TWEET_EDIT','')
             commit('NOTIFICATION', {
-                status: 'success',
-                message: 'Твит удален!'
+                status: response.status,
+                message: response.message
             })
             commit('LOADING', false)
-        } catch (error) {
+        } catch (error:any) {
             commit('NOTIFICATION', {
-                status: 'error',
-                message: 'Ошибка удаления'
+                status: error.response.data.status,
+                message: error.response.data.message
             })
         }
     },
@@ -111,23 +113,27 @@ const actions = {
         try {
             const response = await fetchTweetOne(_id)
             commit('TWEET_EDIT', response.data as TweetInterface)
-        } catch (error) {
-            console.log(error)
+        } catch (error:any) {
+            commit('NOTIFICATION', {
+                status: error.response.data.status,
+                message: error.response.data.message
+            })
         }
     },
-    async TWEET_UPDATE({commit}:any, data: any){
+    async TWEET_UPDATE({commit}:any, data: TweetDataInterface){
         try {
             const _id:string = data._id
             const message:string = data.message
             const response = updateTweet(_id, message)
             commit('TWEET_UPDATE', response)
-        } catch (error) {
-            console.log(error)
+        } catch (error:any) {
+            commit('NOTIFICATION', {
+                status: error.response.data.status,
+                message: error.response.data.message
+            })
         }
-
     }
 }
-
 
 const getters = {
     TWEETS: (state: TweetsStateInterface): Array<TweetInterface> => state.tweets,
