@@ -20,7 +20,7 @@ import { defineComponent } from "vue";
 import vFollowersItem from "../followers/v-followers-item.vue";
 export default defineComponent({
   components: {
-    vFollowersItem,
+    vFollowersItem
   },
   data() {
     return {

@@ -14,9 +14,18 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
-    img: String,
-    title: String,
-    nickname: String,
+    img: {
+      type: String,
+      default: "",
+    },
+    title: {
+      type: String,
+      default: "",
+    },
+    nickname: {
+      type: String,
+      default: "",
+    },
   },
 });
 </script>
@@ -40,10 +49,10 @@ export default defineComponent({
   img {
     margin-right: 10px;
   }
-  .fa-user-plus{
+  .fa-user-plus {
     margin-left: auto;
     margin-right: 20px;
-    color:@color_blue;
+    color: @color_blue;
   }
 }
 </style>

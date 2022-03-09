@@ -13,9 +13,11 @@ export default defineComponent({
   props: {
     onClick: {
       type: Function,
+      default: Function
     },
     title: {
       type: String,
+      default:''
     },
     isBlue: {
       type: Boolean,

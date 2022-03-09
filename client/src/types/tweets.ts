@@ -1,10 +1,6 @@
 import { UserInterface } from './user';
 import {NotificationType} from './auth';
 
-export interface TweetDataInterface{
-    _id:string,
-    message:string
-}
 
 export interface TweetInterface {
     _id: string
@@ -21,4 +17,15 @@ export interface TweetsStateInterface {
     loadingAddTweet:boolean
     notifacation:NotificationType
     isVisibleDropdown:boolean
+}
+
+export interface TweetDataInterface{
+    _id:string,
+    message:string
+}
+
+export interface TweetResponseInterface{
+    status:string,
+    message:string,
+    data:TweetInterface
 }

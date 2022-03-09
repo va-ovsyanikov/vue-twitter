@@ -55,11 +55,26 @@ export default defineComponent({
     vDropdown,
   },
   props: {
-    fullname: String,
-    username: String,
-    createdAt: String,
-    text: String,
-    _id: String,
+    fullname:  {
+      type:String,
+      default: ""
+    },
+    username:  {
+      type:String,
+      default: ""
+    },
+    createdAt: {
+      type:String,
+      default: ""
+    },
+    text:  {
+      type:String,
+      default: ""
+    },
+    _id:  {
+      type:String,
+      default: ""
+    },
   },
   data() {
     return {

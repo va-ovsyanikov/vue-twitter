@@ -23,9 +23,18 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   props: {
-    type: String,
-    inputText: String,
-    id: String,
+    type:  {
+      type:String,
+      default: ""
+    },
+    inputText:  {
+      type:String,
+      default: ""
+    },
+    id:  {
+      type:String,
+      default: ""
+    },
     isSearch: {
       type: Boolean,
       default: false,
@@ -34,7 +43,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    placeholder: String,
+    placeholder: {
+      type:String,
+      default: ""
+    },
   },
 });
 </script>

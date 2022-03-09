@@ -9,7 +9,7 @@
           :trend="trend"
         >
         {{TRENDS}}
-        dfxgfdg
+  
         </v-trends-item>
       </ul>
     </div>
@@ -28,11 +28,11 @@ export default defineComponent({
   },
   data() {
     return {
-      // trends: [
-      //   { title: "Санкт-Петербург", quantity: 23454 },
-      //   { title: "#короновирус", quantity: 834 },
-      //   { title: "Беларусь", quantity: 334454 },
-      // ],
+      trends: [
+        { title: "Санкт-Петербург", quantity: 23454 },
+        { title: "#короновирус", quantity: 834 },
+        { title: "Беларусь", quantity: 334454 },
+      ],
     };
   },
   computed:{

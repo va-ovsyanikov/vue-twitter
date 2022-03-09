@@ -20,19 +20,25 @@ export default {
   props: {
     onClick1: Function,
     onClick2: Function,
-    title_top: String,
-    title_bottom: String,
+    title_top: {
+      type: String,
+      default: "",
+    },
+    title_bottom: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
       isVisible: false,
     };
   },
-  computeds:{
-    ...mapGetters(["IS_VISIBLE_DROPDOWN"])
+  computeds: {
+    ...mapGetters(["IS_VISIBLE_DROPDOWN"]),
   },
-  created(){
-    this.isVisible = this.IS_VISIBLE_DROPDOWN
+  created() {
+    this.isVisible = this.IS_VISIBLE_DROPDOWN;
   },
   methods: {
     ...mapMutations(["DROPDOWN"]),

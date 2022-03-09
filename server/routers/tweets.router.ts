@@ -9,6 +9,6 @@ router.get('/tweets', passport.authenticate('jwt', { session: false }), tweetsCo
 router.get('/tweet/:id', passport.authenticate('jwt', { session: false }), tweetsController.fetchTweet)
 router.post('/tweet/create', passport.authenticate('jwt', { session: false }), tweetValidation, tweetsController.create)
 router.delete('/tweet/delete/:id', passport.authenticate('jwt', { session: false }), tweetsController.delete)
-router.put('/tweet/update', passport.authenticate('jwt', { session: false }), tweetsController.update)
+router.patch('/tweet/update/:id', passport.authenticate('jwt', { session: false }),tweetValidation, tweetsController.update)
 
 export default router

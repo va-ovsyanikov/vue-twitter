@@ -98,11 +98,6 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(["TWEET_ADD", "TWEET_UPDATE"]),
-    // uploadImage(): void {
-    //   const el = this.$refs.file as HTMLFormElement;
-    //   this.file = el.files[0];
-    //   console.log(this.file);
-    // },
     addFiles() {
       const el = this.$refs.file as HTMLFormElement;
       el.click();
@@ -151,18 +146,20 @@ export default defineComponent({
 
     handleClickAddTweet(): void {
       const obj = {
-        message: this.text,
+         text: this.text
       };
       this.TWEET_ADD(obj);
       this.text = "";
     },
-    handleClickUpdateTweet(){
-        const obj = {
+    handleClickUpdateTweet() {
+      const obj = {
         _id: this.TWEET_EDIT._id,
-        message: this.TWEET_EDIT.text,
+        message: {
+          text:this.TWEET_EDIT.text,
+        }
       };
-      this.TWEET_UPDATE(obj)
-    }
+      this.TWEET_UPDATE(obj);
+    },
   },
 });
 </script>
@@ -201,6 +198,9 @@ export default defineComponent({
   transition: @bacground_trs;
   &:hover {
     background-color: @color_blue_hover_transparent;
+  }
+  input[type="file"] {
+    display: none;
   }
 }
 .user__content {
@@ -251,9 +251,9 @@ export default defineComponent({
     box-shadow: none;
   }
 }
-.textarea_edit{
+.textarea_edit {
   min-height: 120px;
   overflow: auto;
-  resize:vertical;
+  resize: vertical;
 }
 </style>

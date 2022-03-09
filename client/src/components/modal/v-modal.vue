@@ -16,7 +16,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   components: {},
   props: {
-    id: String,
+    id:  {
+      type:String,
+      default: ""
+    },
     isLight: {
       type: Boolean,
       default: false,

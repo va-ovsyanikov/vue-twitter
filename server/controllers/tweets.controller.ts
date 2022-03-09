@@ -26,7 +26,7 @@ class tweetsController {
 
             const tweet = await TweetModel.findById({ _id: tweetId })
 
-            const data = await tweet?.populate('user', '-password -confirmHash -email')
+            const data = await tweet!.populate('user', '-password -confirmHash -email')
 
             if (!data) {
                 res.status(404).send({
@@ -60,7 +60,7 @@ class tweetsController {
                     return
                 }
                 const tweet: TweetModelInterface = {
-                    text: req.body.message,
+                    text: req.body.text,
                     user: user._id as any
                 }
                 const newTweet = await new TweetModel(tweet).save()
@@ -111,14 +111,12 @@ class tweetsController {
                         message: 'Ошибка удаления'
                     })
                 }
-
             } else {
                 res.status(400).send({
                     status: 'error',
                     message: 'Ошибка удаления'
                 })
             }
-
         } catch (error) {
             res.status(500).send({
                 status: 'error',
@@ -126,13 +124,61 @@ class tweetsController {
             })
         }
     }
-
-    async update(req:Request, res:Response){
+    async update(req: any, res: Response) {
         try {
-            console.log(req.body.message)
-            console.log(req.params)
+            const text: any = req.body.text
+            const _id = req.params.id
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                res.status(400).send({
+                    status: 'error',
+                    message: JSON.stringify(errors.array().map(el => el.msg)),
+                })
+                return
+            } else {
+                const updateTweet = await TweetModel.findByIdAndUpdate(_id, { text: text }, { new: true })
+                const data = await updateTweet!.populate('user', '-password -confirmHash -email')
+
+                res.status(200).send({
+                    status: 'success',
+                    message: 'Твит обновлен',
+                    data
+                })
+            }
+
+
+
+            //             const user = req.user as UserModelInterface
+            //             if (user) {
+            //                 const text: any = req.body.text
+            //                 const _id = req.params.id
+            //                 const tweet = await TweetModel.findById(_id)
+            //                 if (tweet) {
+            //                     console.log(tweet)
+            //                     if (String(user._id) === String(tweet.user)) {
+            //                         tweet.text = text
+            //                         const updateTweet = await new TweetModel(tweet).save()
+            //                        const data = await updateTweet.populate('user', '-password -confirmHash -email')
+            // console.log(data)
+            //                         res.status(200).send({
+            //                             status: 'success',
+            //                             message: 'Твит обновлен',
+            //                             data
+            //                         })
+            //                     }
+            //                 }
+            //             } else {
+            //                 res.status(404).send({
+            //                     status: 'error',
+            //                     message: 'Пользователь не найден'
+            //                 })
+            //             }
+
         } catch (error) {
-            
+            res.status(500).send({
+                status: 'error',
+                message: 'Ошибка'
+            })
         }
     }
 }
